@@ -1,0 +1,10 @@
+Flask
+pymongo
+flask_restful
+pandas
+nltk
+instaloader
+datetime
+pycountry
+python-dotenv
+uwsgi
