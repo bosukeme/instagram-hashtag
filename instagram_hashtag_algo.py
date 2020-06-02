@@ -9,13 +9,18 @@ import nltk
 import instaloader 
 import get_entity_country_from_wiki2 as ent_cntry
 nltk.download('stopwords')
+from dotenv import load_dotenv
 
-MONGO_URL = os.environ["MONGO_URL"]
+load_dotenv()
+
+MONGO_URL = os.environ['MONGO_URL']
+
 client= MongoClient(MONGO_URL)
 db = client.hashtag
 
-pass_in_df=pd.read_csv('Bloverse Data - Articles and Entities.csv').head(1) ####this is the only part you will modify in this code
+pd_path=os.path.join(os.getcwd(), 'Bloverse_Data_Articles_and_Entities.csv')
 
+pass_in_df=pd.read_csv(pd_path).head(1) ####this is the only part you will modify in this code
 
 
 def initiate_hashtag_mongo_instance():
