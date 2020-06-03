@@ -15,6 +15,8 @@ import os
 
 country_alpha_file_path = os.path.join(os.getcwd(), 'country_alpha_dict.pickle')
 alpha_country_file_path = os.path.join(os.getcwd(), 'alpha_country_dict.pickle')
+print(country_alpha_file_path)
+print(alpha_country_file_path)
 
 def get_wiki_url_from_search_term(word):
     """
@@ -141,7 +143,11 @@ def generate_country_alpha_dicts(): # This generates a dict of world countries a
     # Save the country_alpha dict, and alpha_country dict into a pickle *** Change this filename to your current one
     # with open('/Users/Edidiong Wilson/Desktop/gitlab/country_alpha_dict.pickle', "wb") as output_file:
     with open(country_alpha_file_path, "wb") as output_file:
-         pickle.dump(country_alpha_dict, output_file)
+         try:
+            pickle.dump(country_alpha_dict, output_file)
+         except EOFError:
+            pass
+            
     
     # with open('/Users/Edidiong Wilson/Desktop/gitlab/alpha_country_dict.pickle', "wb") as output_file:
     with open(alpha_country_file_path, "wb") as output_file:
