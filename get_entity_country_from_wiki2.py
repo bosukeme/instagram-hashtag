@@ -347,4 +347,4 @@ def get_entity_country_from_wikipedia(entity):
     
     return main_country, all_countries, summ, url
     
-get_entity_country_from_wikipedia("football")
+#print(get_entity_country_from_wikipedia("football"))
