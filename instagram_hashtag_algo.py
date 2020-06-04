@@ -8,7 +8,7 @@ from nltk.corpus import stopwords
 import nltk
 import instaloader 
 import get_entity_country_from_wiki2 as ent_cntry
-nltk.download('stopwords')
+#nltk.download('stopwords')
 from dotenv import load_dotenv
 
 load_dotenv()
