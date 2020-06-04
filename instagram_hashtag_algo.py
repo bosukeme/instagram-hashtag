@@ -15,6 +15,7 @@ load_dotenv()
 
 MONGO_URL = os.environ['MONGO_URL']
 
+
 client= MongoClient(MONGO_URL)
 db = client.hashtag
 
