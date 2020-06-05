@@ -13,8 +13,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-MONGO_URL = os.environ['MONGO_URL']
-
+#MONGO_URL = os.environ['MONGO_URL']
+MONGO_URL='mongodb://Bloverse:uaQTRSp6d9czpcCg@64.227.12.212:27017/social_profiling?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false'
 
 client= MongoClient(MONGO_URL)
 db = client.hashtag
