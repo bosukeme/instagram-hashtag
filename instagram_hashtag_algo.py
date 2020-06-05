@@ -21,7 +21,7 @@ db = client.hashtag
 
 pd_path=os.path.join(os.getcwd(), 'Bloverse_Data_Articles_and_Entities.csv')
 
-pass_in_df=pd.read_csv(pd_path).head(1) ####this is the only part you will modify in this code
+pass_in_df=pd.read_csv(pd_path).head(2) ####this is the only part you will modify in this code
 
 
 def initiate_hashtag_mongo_instance():
