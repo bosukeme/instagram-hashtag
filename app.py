@@ -10,8 +10,8 @@ if platform == 'win32':
 
 
 app=Flask(__name__)
-app.config.from_object("default_config")
-app.config.from_envvar("APPLICATION_SETTINGS")
+#app.config.from_object("default_config")
+#app.config.from_envvar("APPLICATION_SETTINGS")
 
 api=Api(app)
 

@@ -15,7 +15,7 @@ import os
 
 country_alpha_file_path = os.path.join(os.getcwd(), 'country_alpha_dict.pickle')
 alpha_country_file_path = os.path.join(os.getcwd(), 'alpha_country_dict.pickle')
-print(country_alpha_file_path)
+#print(country_alpha_file_path)
 
 def get_wiki_url_from_search_term(word):
     """

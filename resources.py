@@ -19,7 +19,7 @@ class Instagram(Resource):
 
         bloverse_data_csv = pd.read_csv(bloverse_data)
 
-        row = bloverse_data_csv.head(2)
+        row = bloverse_data_csv.head(1)
 
         result = instagram_hashtag_algo.future_hashtags_entity(row)
 
