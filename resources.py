@@ -7,25 +7,18 @@ import instagram_hashtag_algo
 import pandas as pd
 from ast import literal_eval
 from schema import DataSchema
+import json
 
 data_schema = DataSchema()
 
 class Instagram(Resource):   
 
     def post(self):
-        data = data_schema.load(request.files)
-
-        bloverse_data = data['bloverse_data']
-
-        bloverse_data_csv = pd.read_csv(bloverse_data)
-
-        row = bloverse_data_csv.head(1)
-
-        result = instagram_hashtag_algo.future_hashtags_entity(row)
+        data=instagram_hashtag_algo.pass_in_df
+        
+        result=instagram_hashtag_algo.future_hashtags_entity(data)
 
         return {
             'Entity data': literal_eval(result)
         }
-
-
 

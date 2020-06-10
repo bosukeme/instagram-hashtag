@@ -19,11 +19,14 @@ MONGO_URL='mongodb://Bloverse:uaQTRSp6d9czpcCg@64.227.12.212:27017/social_profil
 client= MongoClient(MONGO_URL)
 db = client.hashtag
 
-#pd_path=os.path.join(os.getcwd(), 'Bloverse_Data_Articles_and_Entities.csv')
-pd_path=os.path.join(os.getcwd(), 'trying_this2.csv')
+pd_path=os.path.join(os.getcwd(), 'Bloverse_Data_Articles_and_Entities.csv')
+#pd_path=os.path.join(os.getcwd(), 'trying_this2.csv')
 
-pass_in_df=pd.read_csv(pd_path).head(2) ####this is the only part you will modify in this code
-print(pass_in_df)
+pass_in_df=pd.read_csv(pd_path).head(1) ####this is the only part you will modify in this code
+#print(pass_in_df)
+
+json_df=pass_in_df.to_json('json_df.json')
+
 
 def initiate_hashtag_mongo_instance():
     
