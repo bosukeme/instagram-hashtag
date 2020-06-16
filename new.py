@@ -22,7 +22,7 @@ db = client.hashtag
 pd_path=os.path.join(os.getcwd(), 'Bloverse_Data_Articles_and_Entities.csv')
 #pd_path=os.path.join(os.getcwd(), 'trying_this2.csv')
 
-pass_in_df=pd.read_csv(pd_path)[50:100]#.head(50) ####this is the only part you will modify in this code
+pass_in_df=pd.read_csv(pd_path).head(25) ####this is the only part you will modify in this code
 #print(pass_in_df)
 
 #json_df=pass_in_df.to_json('json_df.json')
@@ -260,7 +260,7 @@ def get_article_term_hashtags_and_update_collection(article_terms, term_hashtag_
     
 term_hashtag_collection = initiate_hashtag_mongo_instance()
 
-####this calls the above functions
+
 def pass_df_and_generate_hashtags(df):
     
     for title, entity in df[['title', 'entities']].itertuples(index=False):
@@ -348,13 +348,14 @@ def update_spacy_named_entities_collection(latest_entity_df, preprocessed_entity
 #entity=[item for sublist in unpr_ent for item in sublist]
 
 def get_spacy_entity_metadata(entity_list_full):
+    
+   # import get_entity_country_from_wiki as ent_cntry
+
     ## Now deal with the latest entity_list and update the entity dict
     new_unique_entities = list(set(entity_list_full))
-    new_unique_entities=new_unique_entities
-    #print(new_unique_entities)
     preprocessed_entity_collection = db.preprocessed_entity_collection
     processed_entity_collection = db.processed_entity_collection
-    
+
     entity_list = []
     entity_country_list = []
     entity_summary_list = []
@@ -365,39 +366,33 @@ def get_spacy_entity_metadata(entity_list_full):
             print('%s of %s' % (i, len(new_unique_entities)))
         t = i
         ents = new_unique_entities[t]
+      
+        entity_country = search_for_spacy_entity(ents, preprocessed_entity_collection) #searches the named entity collection to see if our entity is found
         
-        if ents not in reject_entities:
-            entity_country = search_for_spacy_entity(ents, preprocessed_entity_collection) #searches the named entity collection to see if our entity is found
-            
-            processed_entity=list(processed_entity_collection.find({},{ "_id": 0, "Entity": 1}))
-            processed_entity=list((val for dic in processed_entity for val in dic.values()))
-            
-            if entity_country not in processed_entity: #is None:
-                try:
-                    entity_country, entity_all_countries, entity_summary, entity_url = ent_cntry.get_entity_country_from_wikipedia(ents)
-                    entity_list.append(ents)
-                    entity_country_list.append(entity_all_countries)
-                    entity_summary_list.append(entity_summary)
-                    entity_url_list.append(entity_url)
+        
+        processed_entity=list(processed_entity_collection.find({},{ "_id": 0, "Entity": 1}))
+        processed_entity=list((val for dic in processed_entity for val in dic.values()))
+        if entity_country  not in processed_entity:
+            try:
+                entity_country, entity_all_countries, entity_summary, entity_url = ent_cntry.get_entity_country_from_wikipedia(ents)
+                entity_list.append(ents)
+                entity_country_list.append(entity_all_countries)
+                entity_summary_list.append(entity_summary)
+                entity_url_list.append(entity_url)
 
-                except Exception as e:
-                    reject_entities.append(ents)
-                    continue
-            
-            else:
-                print('already processed')
-            
+            except Exception as e:
+                reject_entities.append(ents)
+                continue
+        else:
+            print('already processed'}
     named_entity_df = pd.DataFrame()
     named_entity_df['Entity'] = entity_list
     named_entity_df['Entity Country'] = entity_country_list
     named_entity_df['Entity Summary'] = entity_summary_list
     named_entity_df['Entity Wiki Url'] = entity_url_list
     
-    #print(named_entity_df)
+    print(named_entity_df)
     return named_entity_df
-    
-    # Update the named entity collection with our latest extraction
-    #update_spacy_named_entities_collection(named_entity_df, preprocessed_entity_collection)
 
 
 
@@ -461,7 +456,7 @@ def delete_processed_entity():
     print("We are done with the process")
 
 
-###this calls the above functions
+
 def future_hashtags_entity(df):
     
     
@@ -491,6 +486,6 @@ def future_hashtags_entity(df):
     
     return named_entity_df
     
-#future_hashtags_entity(pass_in_df) ###call the function by passing a df. Make sure df have 'title' and 'entities' features
+future_hashtags_entity(pass_in_df) ###call the function by passing a df. Make sure df have 'title' and 'entities' features
 
 
